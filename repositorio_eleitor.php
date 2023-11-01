@@ -6,6 +6,8 @@ interface IRepositorio_eleitor {
 
     public function buscarEleitor($cpf, $matricula);
 
+    public function buscarCandidatosPorCategoria($categoria);
+
     
 }
 
@@ -35,6 +37,17 @@ class repositorio_eleitor implements IRepositorio_eleitor {
             $eleitor_retorno = FALSE;
         }
         RETURN $eleitor_retorno;
+    }
+    public function buscarCandidatosPorCategoria($categoria) {
+        $categoria = $this->conexao->escapeString($categoria);
+        
+        $sql = "SELECT * FROM `eleitores` WHERE `categoria` LIKE '$categoria' ORDER BY nome;";
+        $retorno = $this->conexao->executarQuery($sql);
+        $listaCandidatos = array();
+        while ($linha_atual = mysqli_fetch_array($retorno)) {
+            array_push($listaCandidatos, $linha_atual);
+        }
+        return $listaCandidatos;
     }
 
 }
