@@ -37,17 +37,11 @@
                         $erro = base64_decode($_GET['err']);
                         if (is_numeric($erro)) {
                             switch ($erro) {
-                                case 520:
-                                    $msg = "Acesso expirado, entre com login e senha.";
-                                    break;
-                                case 529:
-                                    $msg = "Período de inscrição expirado";
-                                    break;
-                                case 782:
+                                case 10:
                                     $msg = "Dados incorretos, favor tentar novamente.";
                                     break;
-                                case 785:
-                                    $msg = "Os dados inseridos não correspondem a um representante de sala. Favor procurar a comissão organizadora.";
+                                case 529:
+                                    $msg = "Período de votação expirado";
                                     break;
                             }
                             ?>
@@ -62,7 +56,7 @@
                         <div class="flex items-center border-2 mb-12 py-2 px-3 rounded-2xl ">
                             <input class="pl-2 w-full outline-none border-none" type="password" name="cpf" id="cpf" placeholder="CPF" />
                         </div>
-                        <button type="submit" class="block w-full bg-indigo-600 mt-5 py-2 rounded-2xl hover:bg-indigo-700 hover:-translate-y-1 transition-all duration-500 text-white font-semibold mb-2">Login</button>
+                        <button type="submit" class="block w-full bg-green-600 mt-5 py-2 rounded-2xl hover:bg-green-700 hover:-translate-y-1 transition-all duration-500 text-white font-semibold mb-2">Login</button>
                    
                 </form>
             </div>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
@@ -69,8 +69,8 @@
                         <div class="flex flex-col bg-gray-200 my-4 max-w-sm shadow-md py-8 px-10 md:px-8 rounded-md">
                             <div class="font-medium text-lg text-gray-800">Modalidade</div>
                             <div class="text-gray-500 mb-3 whitespace-normal h-10">TAE</div>
-                            <select name="tae" id="tae" class="select_votacao">
-                                <option disabled selected>Selecione um candidato</option>
+                            <select name="tae" id="tae" class="select_votacao" required>
+                                <option value="" disabled selected>Selecione um candidato</option>
                                 <option value="branco">Branco/Nulo</option>
                                 <?php
                                 $lista_candidatos = $repo_eleitor->buscarCandidatosPorCategoria('TAE');
@@ -92,8 +92,8 @@
                         <div class="flex flex-col bg-gray-200 my-4 max-w-sm shadow-md py-8 px-10 md:px-8 rounded-md">
                             <div class="font-medium text-lg text-gray-800">Modalidade</div>
                             <div class="text-gray-500 mb-3 whitespace-normal h-10">Docente</div>
-                            <select name="docente" id="docente" class="select_votacao">
-                                <option disabled selected>Selecione um candidato</option>
+                            <select name="docente" id="docente" class="select_votacao" required>
+                                <option value="" disabled selected>Selecione um candidato</option>
                                 <option value="branco">Branco/Nulo</option>
                                 <?php
                                 $lista_candidatos = $repo_eleitor->buscarCandidatosPorCategoria('PROFESSOR');
@@ -132,8 +132,8 @@
                             <div class="flex flex-col bg-gray-200 my-4 max-w-sm shadow-md py-8 px-10 md:px-8 rounded-md">
                                 <div class="font-medium text-lg text-gray-800">Modalidade</div>
                                 <div class="text-gray-500 mb-3 whitespace-normal h-10"><?= $descricao ?></div>
-                                <select name="<?= $modalidade ?>" id="<?= $modalidade ?>" class="select_votacao">
-                                    <option disabled selected>Selecione um candidato</option>
+                                <select name="<?= $modalidade ?>" id="<?= $modalidade ?>" class="select_votacao" required>
+                                    <option value="" disabled selected>Selecione um candidato</option>
                                     <option value="branco">Branco/Nulo</option>
                                     <?php
                                     $lista_candidatos = $repo_eleitor->buscarCandidatosPorCategoria($descricao);

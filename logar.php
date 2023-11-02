@@ -19,8 +19,14 @@ require './repositorio_eleitor.php';
 $retorno = $repo_eleitor->buscarEleitor($cpf, $matricula);
 
 if($retorno){
-    header("Location: votacao.php");
+    $votacoes_existentes = $repo_eleitor->buscarVotosPorEleitor($retorno['id']);
+    if(count($votacoes_existentes) > 0){
+        header("Location: votacao_confirmacao.php");
+    }else{
+        header("Location: votacao.php");
+    }
 }else{
-    header("Location: index.php");
+    $errCripto = base64_encode("10");
+    header("Location: index.php?err=$errCripto");
 }
 exit();
