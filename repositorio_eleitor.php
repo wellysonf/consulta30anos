@@ -51,9 +51,9 @@ class repositorio_eleitor implements IRepositorio_eleitor {
     }
 
     public function buscarVotosPorEleitor($eleitor) {
-        $eleitor_escape = $this->conexao->escapeString($eleitor);        
+        $eleitor = $this->conexao->escapeString($eleitor);        
         $sql = "SELECT v.id as id, v.eleitor as eleitor, v.categoria as categoria, v.voto as voto, e.nome as nome, e.periodo as periodo
-                    FROM `votacao` v, `eleitores` e WHERE `eleitor` = '$eleitor_escape' AND v.voto = e.matricula;";
+                    FROM `votacao` v, `eleitores` e WHERE `eleitor` = '$eleitor' AND v.voto = e.matricula;";
         $retorno = $this->conexao->executarQuery($sql);
         $listaVotos = array();
         while ($linha_atual = mysqli_fetch_array($retorno)) {

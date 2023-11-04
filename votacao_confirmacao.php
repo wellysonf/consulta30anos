@@ -5,6 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Votação 30 anos IFPE - Campus Pesqueira</title>
+    <?php 
+    include("inc.favicon.php");
+    ?>
     <script src="js/tailwindcss.js"></script>
     <style>
         #menu-toggle:checked+#menu {
@@ -99,14 +102,22 @@
             </div>
         </div>
         <div class="flex flex-col md:flex-row gap-4 my-10 ">
-            <a class="middle none center text-center w-full rounded-lg bg-green-500 py-3 px-6 font-sans text-xs font-bold uppercase text-white shadow-md shadow-green-500/20 transition-all hover:shadow-lg hover:shadow-green-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+            <a class="block w-full text-center bg-green-600 mt-5 py-2 rounded-2xl hover:bg-green-700 hover:-translate-y-1 transition-all duration-500 text-white font-semibold mb-2"
+                data-ripple-light="true" href="votacao.php">
+                Modificar Votar
+            </a>
+            <a class="block w-full text-center bg-green-600 mt-5 py-2 rounded-2xl hover:bg-green-700 hover:-translate-y-1 transition-all duration-500 text-white font-semibold mb-2"
+                data-ripple-light="true" href="logout.php">
+                Sair
+            </a>
+            <!-- <a class="middle none center text-center w-full rounded-lg bg-green-500 py-3 px-6 font-sans text-xs font-bold uppercase text-white shadow-md shadow-green-500/20 transition-all hover:shadow-lg hover:shadow-green-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                 data-ripple-light="true" href="votacao.php">
                 Votar novamente
             </a>
             <a class="middle none center text-center w-full rounded-lg bg-green-500 py-3 px-6 font-sans text-xs font-bold uppercase text-white shadow-md shadow-green-500/20 transition-all hover:shadow-lg hover:shadow-green-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                 data-ripple-light="true" href="logout.php">
                 sair
-            </a>
+            </a> -->
 
         </div>
         </div>

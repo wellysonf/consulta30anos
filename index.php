@@ -5,6 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Votação 30 anos IFPE - Campus Pesqueira</title>
+    <?php 
+    include("inc.favicon.php");
+    ?>
     <script src="js/tailwindcss.js"></script>
     <style>
         .login_img_section {
