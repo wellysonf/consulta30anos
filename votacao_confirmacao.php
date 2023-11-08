@@ -63,8 +63,8 @@
             <h2 class="text-3xl">IFPE - <i>Campus</i> Pesqueira</h2>
         </section>
         <p>Olá
-            <?= $_SESSION['auth']['nome'] ?>, seus votos foram registrados com sucesso, caso deseja alterar basta
-            efetuar a votação novamente que seus votos serão atualizados.
+            <?= $_SESSION['auth']['nome'] ?>, seu voto foi registrado com sucesso. Caso deseja alterar, basta
+            efetuar a votação novamente que seu voto será atualizado.
         </p>
         <p>A equipe do IFPE <i>Campus</i> Pesqueira agradece o seu voto.</p>
         <div>
