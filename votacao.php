@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Votação 30 anos IFPE - Campus Pesqueira</title>
-    <?php 
+    <?php
     include("inc.favicon.php");
     ?>
     <script src="js/tailwindcss.js"></script>
@@ -24,7 +24,21 @@
         header("Location: index.php");
     }
     require_once './repositorio_eleitor.php';
-
+    $lista_descricao = [
+        'BACHARELADO EM ENFERMAGEM' => 'enfermagem',
+        'ENGENHARIA ELÉTRICA' => 'eng_elet',
+        'ESPECIALIZAÇÃO EM ENERGIA SOLAR FOTOVOLTAICA' => 'esp_solar',
+        'ESPECIALIZAÇÃO EM ENSINO DE FÍSICA E MATEMÁTICA' => 'esp_fis_mat',
+        'LICENCIATURA EM FÍSICA' => 'fisica',
+        'LICENCIATURA EM MATEMÁTICA' => 'matematica',
+        'TÉCNICO EM EDIFICAÇÕES - SUBSEQUENTE' => 'edif_sub',
+        'TÉCNICO EM EDIFICAÇÕES INTEGRADO AO ENSINO MÉDIO' => 'edif_mi',
+        'TÉCNICO EM ELETROTÉCNICA - INTEGRADO' => 'elet_mi',
+        'TÉCNICO EM ELETROTÉCNICA - SUBSEQUENTE' => 'elet_sub',
+        'TÉCNICO EM MEIO AMBIENTE - INTEGRADO' => 'meio_amb',
+        'TAE' => 'tae',
+        'PROFESSOR' => 'docente',
+    ];
     ?>
     <nav class="lg:px-16 px-6 bg-white shadow-md flex flex-wrap items-center lg:py-0 py-2">
         <div class="flex-1 flex justify-between items-center">
@@ -65,105 +79,47 @@
         <p class="text-justify">Olá <?= $_SESSION['auth']['nome'] ?>, como forma de valorizar aquele que se destacou em seu ofício, o IFPE <i>Campus</i> Pesqueira, lança a votação para escolha através dos pares. Você pode escolher apenas um (a) representante para receber a homenagem em nome dos demais. A homenagem será realizada durante a solenidade oficial das comemorações dos 30 anos, que acontecerá no dia 13.11.23, no espaço Ford.</p>
 
         <div class="flex flex-col items-center md:flex-row gap-4 basis-1">
-            <?php if ($_SESSION['auth']['categoria'] == "TAE") { ?>
-                <div class="flex flex-col gap-2 container">
-                    <span class="my-5">Vote na categoria de Técnico Administrativo:</span>
-                    <form action="votacao_enviar.php" method="post" class="flex flex-col md:flex-row gap-5 w-full justify-center flex-wrap">
-                        <div class="flex flex-col bg-gray-200 my-4 max-w-sm shadow-md py-8 px-10 md:px-8 rounded-md">
-                            <div class="font-medium text-lg text-gray-800">Modalidade</div>
-                            <div class="text-gray-500 mb-3 whitespace-normal h-10">TAE</div>
-                            <select name="tae" id="tae" class="select_votacao" required>
-                                <option value="" disabled selected>Selecione um candidato</option>
-                                <option value="branco">Branco/Nulo</option>
-                                <?php
-                                $lista_candidatos = $repo_eleitor->buscarCandidatosPorCategoria('TAE');
-                                foreach ($lista_candidatos as $candidato) {
-                                ?>
-                                    <option value="<?= $candidato['matricula'] ?>"><?= $candidato['nome'] ?></option>
-                                <?php
-                                }
-                                ?>
-                            </select>
-                        </div>
-                        <button type="submit" class="block w-full bg-green-600 mt-5 py-2 rounded-2xl hover:bg-green-700 hover:-translate-y-1 transition-all duration-500 text-white font-semibold mb-2">Enviar Voto</button>
-                    </form>
-                </div>
-            <?php } elseif ($_SESSION['auth']['categoria'] == "PROFESSOR") {  ?>
-                <div class="flex flex-col gap-2 container">
-                    <span class="my-5">Vote na categoria de Docente:</span>
-                    <form action="votacao_enviar.php" method="post" class="flex flex-col md:flex-row gap-5 w-full justify-center flex-wrap">
-                        <div class="flex flex-col bg-gray-200 my-4 max-w-sm shadow-md py-8 px-10 md:px-8 rounded-md">
-                            <div class="font-medium text-lg text-gray-800">Modalidade</div>
-                            <div class="text-gray-500 mb-3 whitespace-normal h-10">Docente</div>
-                            <select name="docente" id="docente" class="select_votacao" required>
-                                <option value="" disabled selected>Selecione um candidato</option>
-                                <option value="branco">Branco/Nulo</option>
-                                <?php
-                                $lista_candidatos = $repo_eleitor->buscarCandidatosPorCategoria('PROFESSOR');
-                                foreach ($lista_candidatos as $candidato) {
-                                ?>
-                                    <option value="<?= $candidato['matricula'] ?>"><?= $candidato['nome'] ?></option>
-                                <?php
-                                }
-                                ?>
-                            </select>
-                        </div>
-                        <button type="submit" class="block w-full bg-green-600 mt-5 py-2 rounded-2xl hover:bg-green-700 hover:-translate-y-1 transition-all duration-500 text-white font-semibold mb-2">Enviar Voto</button>
-                    </form>
-                </div>
-            <?php } else {  ?>
-                <div class="flex flex-col gap-2 container">
-                    <span class="my-5">Vote na categoria de Discente:</span>
-                    <form action="votacao_enviar.php" method="post" class="flex flex-col md:flex-row gap-5 w-full justify-center flex-wrap">
-                        <?php
-                        $lista_modalidades = [
-                            'enfermagem' => 'BACHARELADO EM ENFERMAGEM',
-                            'eng_elet'   => 'ENGENHARIA ELÉTRICA',
-                            'esp_solar'  => 'ESPECIALIZAÇÃO EM ENERGIA SOLAR FOTOVOLTAICA',
-                            'esp_fis_mat' => 'ESPECIALIZAÇÃO EM ENSINO DE FÍSICA E MATEMÁTICA',
-                            'fisica'     => 'LICENCIATURA EM FÍSICA',
-                            'matematica' => 'LICENCIATURA EM MATEMÁTICA',
-                            'edif_sub'   => 'TÉCNICO EM EDIFICAÇÕES - SUBSEQUENTE',
-                            'edif_mi'    => 'TÉCNICO EM EDIFICAÇÕES INTEGRADO AO ENSINO MÉDIO',
-                            'elet_mi'    => 'TÉCNICO EM ELETROTÉCNICA - INTEGRADO',
-                            'elet_sub'   => 'TÉCNICO EM ELETROTÉCNICA - SUBSEQUENTE',
-                            'meio_amb'   => 'TÉCNICO EM MEIO AMBIENTE - INTEGRADO'
-                        ];
-                        foreach ($lista_modalidades as $modalidade => $descricao) {
-                        ?>
-
-                            <div class="flex flex-col bg-gray-200 my-4 max-w-sm shadow-md py-8 px-10 md:px-8 rounded-md">
-                                <div class="font-medium text-lg text-gray-800">Modalidade</div>
-                                <div class="text-gray-500 mb-3 whitespace-normal h-10"><?= $descricao ?></div>
-                                <select name="<?= $modalidade ?>" id="<?= $modalidade ?>" class="select_votacao" required>
-                                    <option value="" disabled selected>Selecione um candidato</option>
-                                    <option value="branco">Branco/Nulo</option>
-                                    <?php
-                                    $lista_candidatos = $repo_eleitor->buscarCandidatosPorCategoria($descricao);
-                                    foreach ($lista_candidatos as $candidato) {
-                                    ?>
-                                        <option value="<?= $candidato['matricula'] ?>"><?= $candidato['nome'] ?> (<?= $candidato['periodo'] ?>º)</option>
-                                    <?php
+            <div class="flex flex-col gap-2 container">
+                <form action="votacao_enviar.php" method="post" class="flex flex-col md:flex-row gap-5 w-full justify-center flex-wrap">
+                    <div class="flex flex-col bg-gray-200 my-4 max-w-sm shadow-md py-8 px-10 md:px-8 rounded-md">
+                        <div class="font-medium text-lg text-gray-800">Modalidade</div>
+                        <div class="text-gray-500 mb-3 whitespace-normal h-10"><?= $_SESSION['auth']['categoria']  ?></div>
+                        <select name="<?= $lista_descricao[$_SESSION['auth']['categoria']] ?>" id="<?= $lista_descricao[$_SESSION['auth']['categoria']] ?>" class="select_votacao" required>
+                            <option value="" disabled selected>Selecione um candidato</option>
+                            <option value="branco">Branco/Nulo</option>
+                            <?php
+                            $lista_candidatos = $repo_eleitor->buscarCandidatosPorCategoria($_SESSION['auth']['categoria'] );
+                            foreach ($lista_candidatos as $candidato) {
+                            ?>
+                                <option value="<?= $candidato['matricula'] ?>"><?= $candidato['nome'] ?>
+                                (
+                                <?php 
+                                    if($_SESSION['auth']['categoria'] == "TAE" || $_SESSION['auth']['categoria'] == "PROFESSOR" ){
+                                        echo $candidato['matricula'];
+                                    }else{
+                                        echo $candidato['periodo'] . "º";
                                     }
-                                    ?>
-                                </select>
-                            </div>
-                        <?php
-                        }
-                        ?>
-                        <button type="submit" class="block w-full bg-green-600 mt-5 py-2 rounded-2xl hover:bg-green-700 hover:-translate-y-1 transition-all duration-500 text-white font-semibold mb-2">Enviar Voto</button>
-                        <!-- <button type="submit" class="w-full bg-green-300 text-green-950 text-3xl mb-10 p-3 rounded-md font-bold">Enviar Voto</button> -->
-                    </form>
-                </div>
-            <?php }  ?>
+                                ?>
+                                 )
+                            </option>
+                            <?php
+                            }
+                            ?>
+                        </select>
+                    </div>
+                    <button type="submit" class="block w-full bg-green-600 mt-5 py-2 rounded-2xl hover:bg-green-700 hover:-translate-y-1 transition-all duration-500 text-white font-semibold mb-2">Enviar Voto</button>
+                    <!-- <button type="submit" class="w-full bg-green-300 text-green-950 text-3xl mb-10 p-3 rounded-md font-bold">Enviar Voto</button> -->
+                </form>
+            </div>
         </div>
     </main>
 </body>
 <script src="js/jquery-3.7.1.min.js"></script>
 <script src="js/select2.min.js"></script>
 <script type="text/javascript">
-    $(document).ready(function() {
+    $(function() {
         $('.select_votacao').select2();
+
     });
 </script>
 
