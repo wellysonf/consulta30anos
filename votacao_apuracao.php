@@ -66,63 +66,75 @@
         <div>
             <div class="flex flex-col gap-2 container">
                 <section class="flex flex-col md:flex-row gap-5 w-full justify-center flex-wrap">
-                    
-                        <?php
-                        $lista_de_votos = $repo_eleitor->buscarVotosParaApuracao();
-                        $cat_anterior = "";
-                        $classe_css = 'bg-slate-100';
-                        $lista_descricao = [
-                            'BACHARELADO EM ENFERMAGEM' => 'enfermagem',
-                            'ENGENHARIA ELÉTRICA' => 'eng_elet',
-                            'ESPECIALIZAÇÃO EM ENERGIA SOLAR FOTOVOLTAICA' => 'esp_solar',
-                            'ESPECIALIZAÇÃO EM ENSINO DE FÍSICA E MATEMÁTICA' => 'esp_fis_mat',
-                            'LICENCIATURA EM FÍSICA' => 'fisica',
-                            'LICENCIATURA EM MATEMÁTICA' => 'matematica',
-                            'TÉCNICO EM EDIFICAÇÕES - SUBSEQUENTE' => 'edif_sub',
-                            'TÉCNICO EM EDIFICAÇÕES INTEGRADO AO ENSINO MÉDIO' => 'edif_mi',
-                            'TÉCNICO EM ELETROTÉCNICA - INTEGRADO' => 'elet_mi',
-                            'TÉCNICO EM ELETROTÉCNICA - SUBSEQUENTE' => 'elet_sub',
-                            'TÉCNICO EM MEIO AMBIENTE - INTEGRADO' => 'meio_amb',
-                            'TAE' => 'tae',
-                            'PROFESSOR' => 'docente',
-                        ];
-                        foreach ($lista_de_votos as $voto_atual) {
-                           if($cat_anterior != $voto_atual['voto_categoria']){
-                                if($cat_anterior != ""){
-                                    ?>
-                                        </table>
-                                        </div>
-                                    <?php
-                                }
-                                ?>
-                                    <div class="flex w-1/2 flex-col p-3 border-2 border-green-700 gap-2 rounded-md">
-                                    <h2 class="text-2xl font-bold text-center"><?= $voto_atual['voto_categoria'] ?></h2>
-                                    <table>
-                                        <thead>
-                                            <th>Matrícula</th>
-                                            <th>Nome</th>
-                                            <th>Periodo</th>
-                                            <th>Qtd. Votos</th>
-                                        </thead>
-                                <?php
-                                $cat_anterior = $voto_atual['voto_categoria'];
-                           }
-                            ?>
-                                <tr class="<?= $classe_css ?> ">
-                                    <td class="text-center"><?= $voto_atual['voto_matricula'] ?></td>
-                                    <td><?= $voto_atual['voto_nome'] ?></td>
-                                    <td class="text-center"><?= $voto_atual['voto_periodo'] ?></td>
-                                    <td class="text-center text-xl"><?= $voto_atual['qtd_voto'] ?></td>
-                                </tr>
-                            <?php
-                            $classe_css = ($classe_css == "bg-slate-100") ? "bg-slate-300" : "bg-slate-100";
-                        }
-                        ?>
-                    
-                </section>
+
+                    <?php
+                    $lista_de_votos = $repo_eleitor->buscarVotosParaApuracao();
+                    $cat_anterior = "";
+                    $classe_css = 'bg-slate-100';
+                    $total_votos = 0;
+                    $total_categoria = 0;
+                    $lista_descricao = [
+                        'BACHARELADO EM ENFERMAGEM' => 'enfermagem',
+                        'ENGENHARIA ELÉTRICA' => 'eng_elet',
+                        'ESPECIALIZAÇÃO EM ENERGIA SOLAR FOTOVOLTAICA' => 'esp_solar',
+                        'ESPECIALIZAÇÃO EM ENSINO DE FÍSICA E MATEMÁTICA' => 'esp_fis_mat',
+                        'LICENCIATURA EM FÍSICA' => 'fisica',
+                        'LICENCIATURA EM MATEMÁTICA' => 'matematica',
+                        'TÉCNICO EM EDIFICAÇÕES - SUBSEQUENTE' => 'edif_sub',
+                        'TÉCNICO EM EDIFICAÇÕES INTEGRADO AO ENSINO MÉDIO' => 'edif_mi',
+                        'TÉCNICO EM ELETROTÉCNICA - INTEGRADO' => 'elet_mi',
+                        'TÉCNICO EM ELETROTÉCNICA - SUBSEQUENTE' => 'elet_sub',
+                        'TÉCNICO EM MEIO AMBIENTE - INTEGRADO' => 'meio_amb',
+                        'TAE' => 'tae',
+                        'PROFESSOR' => 'docente',
+                    ];
+                    foreach ($lista_de_votos as $voto_atual) {
+                        if ($cat_anterior != $voto_atual['voto_categoria']) {
+                            if ($cat_anterior != "") {
+                    ?>
+                                </table>
+                                <span class="text-xl text-center">Total de votos: <?= $total_votos ?></span>
             </div>
+        <?php
+                                $total_votos = 0;
+                            }
+        ?>
+        <div class="flex w-full md:w-1/2 flex-col p-3 border-2 border-green-700 gap-2 rounded-md">
+            <h2 class="text-2xl font-bold text-center"><?= $voto_atual['voto_categoria'] ?></h2>
+            <table>
+                <thead>
+                    <th>Matrícula</th>
+                    <th>Nome</th>
+                    <th>Periodo</th>
+                    <th>Qtd. Votos</th>
+                </thead>
+            <?php
+                            $cat_anterior = $voto_atual['voto_categoria'];
+                        }
+            ?>
+            <tr class="<?= $classe_css ?> ">
+                <td class="text-center"><?= $voto_atual['voto_matricula'] ?></td>
+                <td><?= $voto_atual['voto_nome'] ?></td>
+                <td class="text-center"><?= $voto_atual['voto_periodo'] ?></td>
+                <td class="text-center text-xl"><?= $voto_atual['qtd_voto'] ?></td>
+            </tr>
+        <?php
+                        $total_votos = $total_votos + $voto_atual['qtd_voto'];
+                        $total_categoria = $total_categoria + $voto_atual['qtd_voto'];
+                        $classe_css = ($classe_css == "bg-slate-100") ? "bg-slate-300" : "bg-slate-100";
+                    }
+        ?>
+            </table>
+            <span class="text-xl text-center">Total de votos: <?= $total_votos ?></span>
+        </div>
+        <div class="flex w-full md:w-1/2 flex-col p-3 border-2 border-green-700 gap-2 rounded-md mb-4">
+            <span class="text-xl text-center">Total Geral de votos: <?= $total_categoria ?></span>
+        </div>
+        </section>
+        </div>
         </div>
         </div>
     </main>
 </body>
+
 </html>
